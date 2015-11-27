@@ -4,8 +4,8 @@ package com.mem.gon.models;
  * Created by mark on 23/11/15.
  */
 public class Model {
-    long id;
-    String createdAt, updatedAt;
+    private long id;
+    private String createdAt, updatedAt;
 
     public Model() {
     }

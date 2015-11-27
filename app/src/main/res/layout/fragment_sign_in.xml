@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/sigin_layout">
+    <!-- Email Box -->
+
+    <EditText
+        android:id="@+id/email"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dip"
+        android:layout_marginBottom="20dip"
+        android:singleLine="true"
+        android:inputType="textEmailAddress"
+        android:hint="@string/hint_email"/>
+
+    <!-- Password Box -->
+    <EditText
+        android:id="@+id/password"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="0dip"
+        android:layout_marginBottom="0dip"
+        android:singleLine="true"
+        android:hint="@string/password"
+        android:inputType="textPassword"/>
+    <TextView
+        android:id="@+id/password_forget"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="0dp"
+        android:layout_marginBottom="0dp"
+        android:gravity="right"
+        android:padding="12dp"
+        android:text="@string/forgot_password"
+        />
+    <!-- Login Button-->
+    <Button
+        android:id="@+id/login_button"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="18dp"
+        android:padding="12dp"
+        android:text="@string/login"
+        />
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="@string/or"
+        />
+
+    <TextView android:id="@+id/link_facebook"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="24dp"
+        android:text="@string/facebook_signin"
+        android:gravity="center"
+        android:textSize="16sp"/>
+</LinearLayout>
