@@ -3,14 +3,26 @@
     package="com.mem.gon" >
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="ANDROID.PERMISSION.ACCESS_FINE_LOCATION" />
-    <uses-permission android:name="ANDROID.PERMISSION.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
+
+        <meta-data android:name="com.facebook.sdk.ApplicationId" android:value="@string/app_id" />
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyDvvRRgY0037X4UU0_OC3JzLqYlO2g9_tw" />
+
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
+
         <activity
             android:name=".activities.MainActivity"
             android:label="@string/app_name" >
@@ -22,9 +34,32 @@
         </activity>
         <activity
             android:name=".activities.LoginActivity"
-            android:label="@string/title_activity_login"
-            android:theme="@style/LoginTheme" >
+            android:label="@string/app_name"
+            android:theme="@style/NoActionBar" >
         </activity>
+        <activity
+            android:name=".activities.DetailsActivity"
+            android:label="@string/app_name"
+            android:theme="@style/NoActionBar" >
+        </activity>
+        <activity
+            android:name=".activities.ProfileActivity"
+            android:label="@string/title_activity_profile"
+            android:theme="@style/NoActionBar">
+        </activity>
+
+        <activity
+            android:name=".activities.MeetingActivity"
+            android:label="@string/title_activity_meeting"
+            android:theme="@style/NoActionBar">
+        </activity>
+
+        <activity android:name="com.facebook.FacebookActivity"
+            android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"
+            android:label="@string/app_name">
+        </activity>
+
     </application>
 
 </manifest>

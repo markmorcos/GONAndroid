@@ -1,14 +1,18 @@
 <resources>
+    <color name="yellowColor">#FFD700</color>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="MaterialNavigationDrawerTheme.Light.DarkActionBar">
-        <item name="colorPrimary">#FFD700</item>
-        <item name="colorPrimaryDark">#FFD700</item>
+    <style name="AppTheme" parent="MaterialNavigationDrawerTheme.Light">
+        <item name="learningPattern">false</item>
+        <item name="singleAccount">true</item>
+        <item name="colorPrimary">@color/yellowColor</item>
+        <item name="colorPrimaryDark">@color/yellowColor</item>
         <item name="colorAccent">#FFFFFF</item>
     </style>
 
-    <style name="LoginTheme" parent="Theme.AppCompat.Light.DarkActionBar">
-        <item name="colorPrimary">#FFD700</item>
-        <item name="colorPrimaryDark">#FFD700</item>
+    <style name="NoActionBar" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:windowActionBar">false</item>
+        <item name="android:windowNoTitle">true</item>
     </style>
+
 </resources>

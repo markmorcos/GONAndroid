@@ -3,7 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/action_websearch"
-        android:icon="@mipmap/action_search"
+        android:icon="@drawable/search"
         android:title="@string/action_websearch"
         whatever:title="@string/action_websearch"
         whatever:showAsAction="ifRoom|withText"

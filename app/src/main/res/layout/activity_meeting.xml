@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="fill_parent"
+    android:layout_height="fill_parent">
+    <android.support.v7.widget.Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/toolbar_meeting"
+        android:background="@color/yellowColor"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:weightSum="1"
+
+        android:orientation="horizontal">
+        <ImageView
+            android:src="@drawable/bamboo"
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:id="@+id/meeting_picture"/>
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:layout_gravity="center_vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_gravity="center_vertical"
+            android:text="Starbucks"
+            android:id="@+id/meeting_name"
+            android:textSize="10pt" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:text="Ebram Mitry"
+                android:layout_weight="1"
+                android:visibility="gone"
+                android:id="@+id/meeting_edit_name" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_gravity="center_vertical"
+                android:text="Hosted By: Ebram Mitry"
+                android:textSize="5pt"
+                android:id="@+id/host"
+                />
+
+        </LinearLayout>
+
+
+
+        <Button
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
+            android:text="C"
+
+            android:layout_gravity="center_vertical"
+            android:id="@+id/change_name_meeting" />
+        <Button
+            android:id="@+id/done_name_meeting"
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:text="D"
+            android:visibility="gone"
+            />
+        <Button
+            android:id="@+id/cancel_change_meeting"
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:text="X"
+            android:visibility="gone"
+            />
+
+    </LinearLayout>
+
+    <fragment
+        android:layout_width="match_parent"
+        android:layout_height="143dp"
+        android:id="@+id/map_meeting"
+        class="com.google.android.gms.maps.SupportMapFragment"/>
+
+</LinearLayout>

@@ -1,62 +1,38 @@
 package com.mem.gon.models;
 
-import android.content.Context;
-
-import com.android.volley.Request;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.util.ArrayList;
-
 /**
- * Created by mark on 23/11/15.
+ * Created by mark on 27/11/15.
  */
 public class User extends Model {
-    private String firstName, lastName, picture;
+    private static int count = 0;
+    private String email, firstName, lastName, picture;
     private double latitude, longitude;
     private String facebookUID;
 
     public User() {
-        super();
+        id = count++;
+        email = "";
+        firstName = "";
+        lastName = "";
+        picture = "";
+        latitude = 0;
+        longitude = 0;
+        facebookUID = "";
     }
 
-    public User(long id) {
-
+    public User(String email, String firstName, String lastName) {
+        id = count++;
+        this.email = email;
+        this.firstName = firstName;
+        this.lastName = lastName;
     }
 
-    public static User fromJson(Context context, String url) {
-        final User user = new User();
-        StringRequest request = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-                try {
-                    JSONObject json = new JSONObject(response);
-                    user.setId(json.getLong("id"));
-                    user.setFirstName(json.getString("first_name"));
-                    user.setLastName(json.getString("last_name"));
-                    user.setPicture(json.getString("picture"));
-                    user.setLatitude(json.getDouble("latitude"));
-                    user.setLongitude(json.getDouble("longitude"));
-                    user.setFacebookUID(json.optString("facebook_uid"));
-                    user.setCreatedAt(json.getString("created_at"));
-                    user.setUpdatedAt(json.getString("updated_at"));
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
+    public String getEmail() {
+        return email;
+    }
 
-            }
-        });
-        Volley.newRequestQueue(context).add(request);
-        return user;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getFirstName() {
@@ -105,5 +81,9 @@ public class User extends Model {
 
     public void setFacebookUID(String facebookUID) {
         this.facebookUID = facebookUID;
+    }
+
+    public String getName() {
+        return firstName + " " + lastName;
     }
 }

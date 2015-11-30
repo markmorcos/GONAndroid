@@ -9,8 +9,11 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.facebook.FacebookSdk;
 import com.mem.gon.R;
 import com.mem.gon.activities.MainActivity;
+import com.mem.gon.helpers.Session;
+import com.mem.gon.models.User;
 
 public class SignInFragment extends Fragment {
     Button login;
@@ -31,21 +34,18 @@ public class SignInFragment extends Fragment {
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                boolean error = false;
                 if(!email.getText().toString().trim().matches(emailPattern)) {
                     email.setError("invalid email address");
-                    error = true;
                 }
-                if (email.getText().length() == 0) {
+                else if (email.getText().length() == 0) {
                     email.setError("email can't be blank");
-                    error = true;
                 }
-                if (password.getText().length() == 0) {
+                else if (password.getText().length() == 0) {
                     password.setError("password can't be blank");
-                    error = true;
                 }
-                if (!error) {
-                    getActivity().startActivity(new Intent(view.getContext(), MainActivity.class));
+                else {
+                    Session.create(new User(email.getText().toString(), "Mark", "Morcos"));
+                    getActivity().startActivity(new Intent(getActivity(), MainActivity.class));
                     getActivity().finish();
                 }
 

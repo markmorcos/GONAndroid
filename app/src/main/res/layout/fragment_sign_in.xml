@@ -46,18 +46,4 @@
         android:text="@string/login"
         />
 
-    <TextView
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="@string/or"
-        />
-
-    <TextView android:id="@+id/link_facebook"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="24dp"
-        android:text="@string/facebook_signin"
-        android:gravity="center"
-        android:textSize="16sp"/>
 </LinearLayout>

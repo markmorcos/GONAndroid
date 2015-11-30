@@ -10,6 +10,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.mem.gon.R;
+import com.mem.gon.activities.DetailsActivity;
 
 public class SignUpFragment extends Fragment {
     TextView next;
@@ -30,17 +31,17 @@ public class SignUpFragment extends Fragment {
 
             @Override
             public void onClick(View v) {
-                boolean error = false;
                 if(newEmail.getText().length() == 0) {
                     newEmail.setError("email can't be blank");
-                    error = true;
                 }
-                if(!newEmail.getText().toString().trim().matches(emailPattern)) {
+                else if(!newEmail.getText().toString().trim().matches(emailPattern)) {
                     newEmail.setError("invalid email address");
-                    error = true;
                 }
-                if (!error) {
-                    //view.getContext().startActivity(new Intent(view.getContext(), NewDetailsActivity.class));
+                else {
+                    Intent intent = new Intent(getActivity(), DetailsActivity.class);
+                    intent.putExtra("email", newEmail.getText().toString());
+                    getActivity().startActivity(intent);
+                    getActivity().finish();
                 }
 
             }
