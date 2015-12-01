@@ -2,6 +2,7 @@ package com.mem.gon.activities;
 
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -151,10 +152,14 @@ public class MeetingActivity extends AppCompatActivity implements OnMapReadyCall
                 else System.out.println("filemanagerstring is null");
 
                 //NOW WE HAVE OUR WANTED STRING
-                if(selectedImagePath!=null)
+                if(selectedImagePath!=null) {
                     System.out.println("selectedImagePath is the right one for you!");
-                else
+                    image.setImageBitmap(BitmapFactory.decodeFile(selectedImagePath));
+                }
+                else {
                     System.out.println("filemanagerstring is the right one for you!");
+                    image.setImageBitmap(BitmapFactory.decodeFile(filemanagerstring));
+                }
             }
         }
     }
