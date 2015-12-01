@@ -10,10 +10,10 @@
     >
 
     <ImageView
-        android:id="@+id/circle_image_view_meeting_picture"
+        android:id="@+id/image_view_meeting_picture"
         android:layout_width="60dp"
         android:layout_height="60dp"
-        android:src="@drawable/picture"
+        android:src="@drawable/bamboo"
         android:layout_gravity="center_vertical"
         />
 
@@ -39,26 +39,33 @@
                 android:weightSum="1"
                 android:layout_weight="1"
                 android:layout_gravity="center_vertical">
-            <TextView
-                android:id="@+id/text_view_meeting_name"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:gravity="center_vertical"
-                android:text="Starbucks" />
+                <TextView
+                    android:id="@+id/text_view_place_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:gravity="center_vertical"
+                    android:text="Starbucks" />
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Hosted by: "
+                    android:text="Invited by: Mayar Ali"
                     android:textSize="5pt"
-                    android:id="@+id/host_name"/>
+                    android:id="@+id/text_view_meeting_host"/>
             </LinearLayout>
             <Button
-                android:id="@+id/button_meeting_remove"
+                android:id="@+id/button_meeting_accept"
                 android:layout_width="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:layout_height="wrap_content"
-                android:text="Fakes outing"
+                android:text="Mashy"
+                />
+            <Button
+                android:id="@+id/button_meeting_reject"
+                android:layout_width="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_height="wrap_content"
+                android:text="FAKES"
                 />
 
         </LinearLayout>

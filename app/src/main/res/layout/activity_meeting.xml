@@ -45,7 +45,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:text="Ebram Mitry"
+                android:text="Starbucks"
                 android:layout_weight="1"
                 android:visibility="gone"
                 android:id="@+id/meeting_edit_name" />
@@ -90,6 +90,28 @@
 
     </LinearLayout>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="1"
+        >
+    <Button
+        android:id="@+id/button_meeting_accept"
+        android:layout_width="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginLeft="200dp"
+        android:layout_height="wrap_content"
+        android:text="Mashy"
+        />
+    <Button
+        android:id="@+id/button_meeting_reject"
+        android:layout_width="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_height="wrap_content"
+        android:text="FAKES"
+        />
+    </LinearLayout>
     <fragment
         android:layout_width="match_parent"
         android:layout_height="143dp"
