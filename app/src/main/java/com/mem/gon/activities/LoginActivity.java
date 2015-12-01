@@ -7,22 +7,52 @@ import android.view.View.OnClickListener;
 import android.view.View;
 import android.widget.TextView;
 
+import com.facebook.CallbackManager;
+import com.facebook.FacebookCallback;
+import com.facebook.FacebookException;
 import com.facebook.FacebookSdk;
+import com.facebook.login.LoginResult;
+import com.facebook.login.widget.LoginButton;
 import com.mem.gon.R;
 import com.mem.gon.fragments.SignInFragment;
 import com.mem.gon.fragments.SignUpFragment;
 import com.mem.gon.helpers.Session;
+import com.mem.gon.models.User;
 
 public class LoginActivity extends AppCompatActivity {
     TextView signIn, signUp;
     SignUpFragment lf;
     SignInFragment ls;
 
+    CallbackManager callbackManager;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         FacebookSdk.sdkInitialize(this);
         setContentView(R.layout.activity_login);
+        callbackManager = CallbackManager.Factory.create();
+
+        LoginButton loginButton = (LoginButton) findViewById(R.id.facebook_login_button);
+        loginButton.setReadPermissions("user_friends,email");
+        loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
+            @Override
+            public void onSuccess(LoginResult loginResult) {
+                Session.create(new User("mark.yehia@gmail.com", "Mark", "Morcos"));
+                startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                finish();
+            }
+
+            @Override
+            public void onCancel() {
+
+            }
+
+            @Override
+            public void onError(FacebookException e) {
+
+            }
+        });
 
         if(Session.isUserSignedIn()) {
             startActivity(new Intent(this, MainActivity.class));
@@ -56,5 +86,11 @@ public class LoginActivity extends AppCompatActivity {
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_login, ls).commit();
             }
         });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        callbackManager.onActivityResult(requestCode, resultCode, data);
     }
 }
