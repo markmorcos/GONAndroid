@@ -60,7 +60,22 @@ public class CurrentFriendsAdapter extends ArrayAdapter<User> {
                 ((MaterialNavigationDrawer) getContext()).setFragmentChild(new MessageFragment(), "You and " + user.getName());
             }
         });
-        Button removeButton = (Button) convertView.findViewById(R.id.button_friend_remove);
+        final Button removeButton = (Button) convertView.findViewById(R.id.button_friend_remove);
+        /*removeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                removeButton.setVisibility(View.GONE);
+                addButton.setVisibility(View.VISIBLE);
+            }
+        });
+
+        addButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                removeButton.setVisibility(View.VISIBLE);
+                addButton.setVisibility(View.GONE);
+            }
+        });*/
         return convertView;
     }
 }
