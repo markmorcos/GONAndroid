@@ -72,6 +72,25 @@
 
     </LinearLayout>
 
+    <Button
+        android:id="@+id/add_friend"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:text="Add Friend"
+        android:layout_marginLeft="275dp"
+
+        />
+    <Button
+        android:id="@+id/remove_friend"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:text="Unfriend"
+        android:visibility="gone"
+        android:layout_marginLeft="275dp"
+
+        />
     <fragment
         android:layout_width="match_parent"
         android:layout_height="143dp"

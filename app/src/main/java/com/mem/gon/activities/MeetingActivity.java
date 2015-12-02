@@ -33,6 +33,7 @@ public class MeetingActivity extends AppCompatActivity implements OnMapReadyCall
     Button name_button;
     ImageView image;
     Toolbar mActionBarToolbar;
+    Button mashy, fakes;
     private static final int SELECT_PICTURE = 1;
 
     private String selectedImagePath;
@@ -59,7 +60,25 @@ public class MeetingActivity extends AppCompatActivity implements OnMapReadyCall
         cancel = (Button) findViewById(R.id.cancel_change_meeting);
         nameview.setText(name.getText());
         image = (ImageView) findViewById(R.id.meeting_picture);
+        mashy = (Button) findViewById(R.id.button_meeting_accept);
+        fakes = (Button) findViewById(R.id.button_meeting_reject);
 
+        mashy.setOnClickListener(new View.OnClickListener() {
+
+            public void onClick(View arg0) {
+                mashy.setVisibility(View.GONE);
+                fakes.setVisibility(View.VISIBLE);
+            }
+        });
+
+
+        fakes.setOnClickListener(new View.OnClickListener() {
+
+            public void onClick(View arg0) {
+                fakes.setVisibility(View.GONE);
+                mashy.setVisibility(View.VISIBLE);
+            }
+        });
         SupportMapFragment mapFragment =
                 (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map_meeting);
         mapFragment.getMapAsync(this);

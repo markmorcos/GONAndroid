@@ -56,6 +56,31 @@ public class ProfileActivity extends AppCompatActivity implements OnMapReadyCall
         cancel = (Button) findViewById(R.id.cancel_change);
         nameview.setText(name.getText());
         image = (CircleImageView) findViewById(R.id.profile_picture);
+        final Button addFriend = (Button) findViewById(R.id.add_friend);
+        final Button unfriend = (Button) findViewById(R.id.remove_friend);
+
+        if(nameview.getText().equals("Mark Morcos")){
+            addFriend.setVisibility(View.GONE);
+        }
+        else {
+            addFriend.setOnClickListener(new View.OnClickListener() {
+
+                public void onClick(View arg0) {
+                    addFriend.setVisibility(View.GONE);
+                    unfriend.setVisibility(View.VISIBLE);
+                }
+            });
+
+
+            unfriend.setOnClickListener(new View.OnClickListener() {
+
+                public void onClick(View arg0) {
+                    unfriend.setVisibility(View.GONE);
+                    addFriend.setVisibility(View.VISIBLE);
+                }
+            });
+
+        }
 
         SupportMapFragment mapFragment =
                 (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
