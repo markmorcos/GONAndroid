@@ -12,6 +12,7 @@ import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.mem.gon.R;
@@ -20,6 +21,12 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.mem.gon.adapters.PostsAdapter;
+import com.mem.gon.models.Comment;
+import com.mem.gon.models.Post;
+import com.mem.gon.models.User;
+
+import java.util.ArrayList;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -146,10 +153,26 @@ public class ProfileActivity extends AppCompatActivity implements OnMapReadyCall
                 cancel.setVisibility(View.GONE);
                 done.setVisibility(View.GONE);
                 // Show soft keyboard for the user to enter the value.
-
-
             }
         });
+
+        final ListView postsList = (ListView) findViewById(R.id.list_view_news_feed);
+        User mark = new User("mark@gmail.com", "Mark", "Morcos");
+        User mayar = new User("mayar@gmail.com", "Mayar", "Ali");
+        Comment comment1 = new Comment(mayar, "Mayar made this comment on the first post");
+        Comment comment2 = new Comment(mayar, "Mayar made this comment, too, on the first post");
+        Comment comment3 = new Comment(mark, "Mark made this comment on the second post");
+        ArrayList<Comment> comments1 = new ArrayList<>();
+        comments1.add(comment1);
+        comments1.add(comment2);
+        ArrayList<Comment> comments2 = new ArrayList<>();
+        comments2.add(comment3);
+        final Post[] postsArray = new Post[] {
+                new Post(mark, null, "This is a post Mark Morcos posted!", 0, 0, "", comments1),
+                new Post(mayar, mark, "This is a post Mayar posted on Mark's timeline!.", 0, 0, "", comments2)
+        };
+        postsList.setAdapter(new PostsAdapter(this, R.layout.adapter_posts, postsArray));
+
     }
 
 

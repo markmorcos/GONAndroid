@@ -10,9 +10,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Gravity;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.mem.gon.R;
@@ -21,6 +23,11 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.mem.gon.adapters.MessagesAdapter;
+import com.mem.gon.fragments.MessageFragment;
+import com.mem.gon.models.User;
+
+import it.neokree.materialnavigationdrawer.MaterialNavigationDrawer;
 
 /**
  * Created by Mayar on 11/29/15.
@@ -145,6 +152,19 @@ public class MeetingActivity extends AppCompatActivity implements OnMapReadyCall
                 // Show soft keyboard for the user to enter the value.
 
 
+            }
+        });
+
+        ListView messagesList = (ListView) findViewById(R.id.list_view_messages);
+        final User[] friendsArray = new User[] {
+                new User("ebram@gmail.com", "Ebram", "Mitry"),
+                new User("mayar@gmail.com", "Mayar", "Ali"),
+        };
+        messagesList.setAdapter(new MessagesAdapter(this, R.layout.adapter_messages, friendsArray));
+        messagesList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                startActivity(new Intent(MeetingActivity.this, ProfileActivity.class));
             }
         });
     }

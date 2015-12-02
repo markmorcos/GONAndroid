@@ -13,11 +13,9 @@
         android:layout_height="wrap_content"
         android:padding="10dp"
         android:weightSum="1"
-
         android:orientation="horizontal">
         <ImageView
             android:src="@drawable/bamboo"
-            xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="60dp"
             android:layout_height="60dp"
 
@@ -93,31 +91,36 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
+        android:orientation="vertical"
         android:weightSum="1"
         >
     <Button
         android:id="@+id/button_meeting_accept"
         android:layout_width="wrap_content"
-        android:layout_gravity="center_vertical"
-        android:layout_marginLeft="287dp"
+        android:layout_gravity="center_vertical|right"
         android:layout_height="wrap_content"
         android:text="Mashy"
         />
     <Button
         android:id="@+id/button_meeting_reject"
         android:layout_width="wrap_content"
-        android:layout_gravity="center_vertical"
+        android:layout_gravity="center_vertical|right"
         android:layout_height="wrap_content"
         android:text="FAKES"
-        android:layout_marginLeft="287dp"
         android:visibility="gone"
         />
     </LinearLayout>
+
     <fragment
         android:layout_width="match_parent"
-        android:layout_height="143dp"
+        android:layout_height="120dp"
         android:id="@+id/map_meeting"
         class="com.google.android.gms.maps.SupportMapFragment"/>
+
+    <ListView
+        android:id="@+id/list_view_messages"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        />
 
 </LinearLayout>

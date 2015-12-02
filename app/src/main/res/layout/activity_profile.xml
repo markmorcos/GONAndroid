@@ -13,11 +13,9 @@
         android:layout_height="wrap_content"
         android:padding="10dp"
         android:weightSum="1"
-
         android:orientation="horizontal">
         <de.hdodenhof.circleimageview.CircleImageView
             android:src="@drawable/picture"
-            xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="60dp"
             android:layout_height="60dp"
 
@@ -76,25 +74,60 @@
         android:id="@+id/add_friend"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical"
+        android:layout_gravity="center_vertical|right"
         android:text="Add Friend"
-        android:layout_marginLeft="275dp"
 
         />
     <Button
         android:id="@+id/remove_friend"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical"
+        android:layout_gravity="center_vertical|right"
         android:text="Unfriend"
         android:visibility="gone"
-        android:layout_marginLeft="275dp"
 
         />
     <fragment
         android:layout_width="match_parent"
-        android:layout_height="143dp"
+        android:layout_height="120dp"
         android:id="@+id/map"
         class="com.google.android.gms.maps.SupportMapFragment"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="1">
+
+            <EditText
+                android:id="@+id/edit_text_comment_text"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:hint="Type a post"
+                android:layout_weight="1"
+                />
+
+            <Button
+                android:id="@+id/button_add_comment"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Post"
+                />
+
+        </LinearLayout>
+
+        <ListView
+            android:id="@+id/list_view_news_feed"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            />
+
+    </LinearLayout>
 
 </LinearLayout>

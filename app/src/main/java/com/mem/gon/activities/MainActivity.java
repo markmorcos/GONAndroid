@@ -35,9 +35,9 @@ public class MainActivity extends MaterialNavigationDrawer implements MaterialAc
 
         // create sections
         addSection(newSection("News Feed", R.drawable.ic_public_black_24dp, new NewsFeedFragment()).setNotifications(10));
-        addSection(newSection("Messages", R.drawable.ic_message_black_24dp, new MessagesFragment()).setNotifications(40));
-        addSection(newSection("Friends", R.drawable.ic_wc_black_24dp, new CurrentFriendsFragment()).setNotifications(50));
-        addSection(newSection("Meetings", R.drawable.ic_group_black_24dp, new MeetingsFragment()).setNotifications(60));
+        addSection(newSection("Messages", R.drawable.ic_message_black_24dp, new MessagesFragment()).setNotifications(20));
+        addSection(newSection("Current Friends", R.drawable.ic_wc_black_24dp, new CurrentFriendsFragment()).setNotifications(30));
+        addSection(newSection("Upcoming Meetings", R.drawable.ic_group_black_24dp, new MeetingsFragment()).setNotifications(40));
 
         // create bottom sections
         addSection(newSection("UPDATE LOCATION", R.drawable.ic_location_on_black_24dp, new MaterialSectionListener() {

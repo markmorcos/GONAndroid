@@ -26,7 +26,6 @@ public class NewsFeedFragment extends Fragment {
         final ListView postsList = (ListView) rootView.findViewById(R.id.list_view_news_feed);
         User mark = new User("mark@gmail.com", "Mark", "Morcos");
         User mayar = new User("mayar@gmail.com", "Mayar", "Ali");
-
         Comment comment1 = new Comment(mayar, "Mayar made this comment on the first post");
         Comment comment2 = new Comment(mayar, "Mayar made this comment, too, on the first post");
         Comment comment3 = new Comment(mark, "Mark made this comment on the second post");

@@ -42,6 +42,7 @@ public class PostsAdapter extends ArrayAdapter<Post> {
             commentText.setText(comment.getText());
             comments.addView(commentView);
         }
+
         return convertView;
     }
 }
