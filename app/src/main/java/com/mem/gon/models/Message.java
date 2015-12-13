@@ -6,6 +6,7 @@ package com.mem.gon.models;
 public class Message extends Model {
     User user, otherUser;
     String text;
+    boolean read, received;
 
     public Message() {
         user = new User();
@@ -17,6 +18,22 @@ public class Message extends Model {
         this.user = user;
         this.otherUser = otherUser;
         this.text = text;
+    }
+
+    public boolean isRead() {
+        return read;
+    }
+
+    public void setRead(boolean read) {
+        this.read = read;
+    }
+
+    public boolean isReceived() {
+        return received;
+    }
+
+    public void setReceived(boolean received) {
+        this.received = received;
     }
 
     public User getUser() {

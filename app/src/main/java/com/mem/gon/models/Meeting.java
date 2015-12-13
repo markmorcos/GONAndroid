@@ -21,6 +21,13 @@ public class Meeting extends Model {
 
     }
 
+    public Meeting(String title, User user, double latitude, double longitude){
+        this.latitude = latitude;
+        this.longitude = longitude;
+        this.user = user;
+        this.name = title;
+    }
+
     public double getLatitude() {
         return latitude;
     }

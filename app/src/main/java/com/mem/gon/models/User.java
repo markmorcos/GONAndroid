@@ -1,5 +1,8 @@
 package com.mem.gon.models;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+
 /**
  * Created by mark on 27/11/15.
  */
@@ -8,6 +11,7 @@ public class User extends Model {
     private String email, firstName, lastName, picture;
     private double latitude, longitude;
     private String facebookUID;
+    private ArrayList<User> friends;
 
     public User() {
         id = count++;
@@ -83,7 +87,21 @@ public class User extends Model {
         this.facebookUID = facebookUID;
     }
 
+    public ArrayList<User> getFriends() {
+        return friends;
+    }
+
+    public void setFriends(ArrayList<User> friends) {
+        this.friends = friends;
+    }
+
+    public void addFriend(User friend){
+        this.friends.add(friend);
+    }
+
     public String getName() {
         return firstName + " " + lastName;
     }
+
+
 }

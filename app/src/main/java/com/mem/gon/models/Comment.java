@@ -5,6 +5,7 @@ package com.mem.gon.models;
  */
 public class Comment extends Model {
     User user;
+    Post post;
     String text;
 
     public Comment() {
@@ -12,9 +13,10 @@ public class Comment extends Model {
         text = "";
     }
 
-    public Comment(User user, String text) {
+    public Comment(User user, Post post, String text) {
         this.user = user;
         this.text = text;
+        this.post = post;
     }
 
     public User getUser() {
@@ -30,6 +32,15 @@ public class Comment extends Model {
     }
 
     public void setText(String text) {
+
         this.text = text;
+    }
+
+    public Post getPost() {
+        return post;
+    }
+
+    public void setPost(Post post) {
+        this.post = post;
     }
 }
