@@ -1,83 +1,60 @@
 package com.mem.gon.util;
 
-import android.telecom.Call;
-
-import com.google.gson.Gson;
-import com.google.gson.JsonObject;
-import com.mem.gon.models.Meeting;
-import com.mem.gon.models.Message;
-import com.mem.gon.models.User;
+import com.android.volley.Response;
 
 import org.json.JSONObject;
-
-import java.util.List;
-
-import retrofit.Callback;
-import retrofit.http.Body;
-import retrofit.http.DELETE;
-import retrofit.http.Field;
-import retrofit.http.FormUrlEncoded;
-import retrofit.http.GET;
-import retrofit.http.POST;
-import retrofit.http.PUT;
-import retrofit.http.Path;
 
 /**
  * Created by Mayar on 12/13/15.
  */
 public interface ApiInterface {
 
-    @POST("/sessions")
-    @FormUrlEncoded
-    void login(@Field("session[email]") String email,
-               @Field("session[password]") String password, Callback<User> callback);
+//    @POST("/registrations/create")
+    void checkEmail(String email, Response.Listener<String> listener, Response.ErrorListener errorListener);
 
-    @GET("/user/{id}")
-    void getNewsFeed(@Path("id") int id, Callback<User> callback);
+//    @POST("/registrations/create")
+    void signUp(String email, String password, String passwordConfirmation, String firstName, String lastName, Response.Listener<String> listener, Response.ErrorListener errorListener);
 
-    @GET("/user/{id}/profile")
-    void getProfile(@Path("id") int id, Callback<User> callback);
+//    @POST("/sessions/create")
+    void login(String email, String password, Response.Listener<String> listener, Response.ErrorListener errorListener);
 
-    @PUT("/user/{id}/settings")
-    @FormUrlEncoded
-    void changePassword(@Path("id") int id, @Field("user[password]") String password, Callback<User> callback);
+//    @GET("/user/{id}")
+    void getNewsFeed(long id, Response.Listener<String> listener, Response.ErrorListener errorListener);
 
-    @PUT("/user/{id}/profile")
-    void changeName(@Path("id") int id, @Field("user[firstName]") String firstName, @Field("user[lastName]") String lastName,
-            Callback<User> callback);
+//    @GET("/user/{id}/profile")
+    void getProfile(long id, Response.Listener<String> listener, Response.ErrorListener errorListener);
 
-    @PUT("/user/{id}")
-    void changePhoto(@Path("id") int id, @Field("user[picture") String picture, Callback<User> callback);
+//    @PUT("/user/{id}/settings")
+    void changePassword(long id, String password, Response.Listener<String> listener, Response.ErrorListener errorListener);
 
-    @GET("/user/{id}/current_friends")
-    void getCurrentFriends(@Path("id") int id, Callback<List<User>> callback);
+//    @PUT("/user/{id}/name")
+    void changeName(long id, String firstName, String lastName, Response.Listener<String> listener, Response.ErrorListener errorListener);
 
-    @GET("/user/{id}/friend_requests")
-    void getFriendRequests(@Path("id") int id, Callback<List<User>> callback);
+//    @PUT("/user/{id}")
+    void changePhoto(long id, String picture, Response.Listener<String> listener, Response.ErrorListener errorListener);
 
-    @PUT("/user/{id}/friend/{friend_id}")
-    void acceptRejectFriend(@Path("id") int id, @Path("friend_id") int friendID,
-                            @Field("friend[accept]") boolean accept, Callback<User> callback);
+//    @GET("/user/{id}/current_friends")
+    void getCurrentFriends(long id, Response.Listener<String> listener, Response.ErrorListener errorListener);
 
-    @GET("/user/{id}/messages")
-    void getMessages(@Path("id") int id, Callback<List<Message>> callback);
+//    @GET("/user/{id}/friend_requests")
+    void getFriendRequests(long id, Response.Listener<String> listener, Response.ErrorListener errorListener);
 
-    @PUT("/user/{id}/message/{message_id}")
-    void sendMessage(@Path("id") int id, @Path("message_id") int messageID,
-                     @Field("message[text]") String text, Callback<Message> callback);
+//    @PUT("/user/{id}/friend/{friend_id}")
+    void acceptRejectFriend(long id, long friendId, boolean accept, Response.Listener<String> listener, Response.ErrorListener errorListener);
 
-    @GET("/user/{id}/upcoming_meetings")
-    void getUpcomingMeetings(@Path("id") int id, Callback<List<Meeting>> callback);
+//    @GET("/user/{id}/messages")
+    void getMessages(long id, Response.Listener<String> listener, Response.ErrorListener errorListener);
 
-    @GET("/user/{id}/meeting_requests")
-    void getMeetingRequests(@Path("id") int id, Callback<List<Meeting>> callback);
+//    @PUT("/user/{id}/message/{message_id}")
+    void sendMessage(long id, long messageId, String text, Response.Listener<String> listener, Response.ErrorListener errorListener);
 
-    @PUT("/user/{id}/meeting/{meeting_id}")
-    void acceptRejectMeeting(@Path("id") int id, @Path("meeting_id") int meetingID,
-                             @Field("meeting[accept]") boolean accept, Callback<Meeting> callback);
+//    @GET("/user/{id}/upcoming_meetings")
+    void getUpcomingMeetings(long id, Response.Listener<String> listener, Response.ErrorListener errorListener);
 
+//    @GET("/user/{id}/meeting_requests")
+    void getMeetingRequests(long id, Response.Listener<String> listener, Response.ErrorListener errorListener);
 
-
-
+//    @PUT("/user/{id}/meeting/{meeting_id}")
+    void acceptRejectMeeting(long id, long meetingId, boolean accept, Response.Listener<String> listener, Response.ErrorListener errorListener);
 }
 

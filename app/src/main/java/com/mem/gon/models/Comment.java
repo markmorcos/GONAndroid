@@ -1,5 +1,7 @@
 package com.mem.gon.models;
 
+import android.os.Parcel;
+
 /**
  * Created by mark on 02/12/15.
  */
@@ -13,10 +15,9 @@ public class Comment extends Model {
         text = "";
     }
 
-    public Comment(User user, Post post, String text) {
+    public Comment(User user, String text) {
         this.user = user;
         this.text = text;
-        this.post = post;
     }
 
     public User getUser() {

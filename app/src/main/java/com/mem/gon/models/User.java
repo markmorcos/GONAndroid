@@ -7,14 +7,13 @@ import java.util.ArrayList;
  * Created by mark on 27/11/15.
  */
 public class User extends Model {
-    private static int count = 0;
     private String email, firstName, lastName, picture;
     private double latitude, longitude;
     private String facebookUID;
     private ArrayList<User> friends;
 
     public User() {
-        id = count++;
+        id = 0;
         email = "";
         firstName = "";
         lastName = "";
@@ -25,7 +24,6 @@ public class User extends Model {
     }
 
     public User(String email, String firstName, String lastName) {
-        id = count++;
         this.email = email;
         this.firstName = firstName;
         this.lastName = lastName;
