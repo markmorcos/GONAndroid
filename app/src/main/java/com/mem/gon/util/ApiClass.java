@@ -71,7 +71,21 @@ public class ApiClass {
         }
     }
 
-    // TODO
+    public static void facebookLogin(String uid, String email, String firstName, String lastName, Response.Listener<JSONObject> listener, Response.ErrorListener errorListener) {
+        String url = BASE_URL + "/users/facebook_sign_in";
+        JSONObject params = new JSONObject();
+        try {
+            params.put("facebook_uid", uid);
+            params.put("email", email);
+            params.put("first_name", firstName);
+            params.put("last_name", lastName);
+            JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, url, params, listener, errorListener);
+            getRequestQueue().add(request);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
     public static void getNewsFeed(long id, Response.Listener<JSONArray> listener, Response.ErrorListener errorListener) {
         String url = BASE_URL + "/users/" +  id + "/news_feed";
         JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, url, listener, errorListener);

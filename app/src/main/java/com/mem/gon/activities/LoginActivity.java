@@ -1,12 +1,16 @@
 package com.mem.gon.activities;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View.OnClickListener;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
@@ -22,6 +26,7 @@ import com.mem.gon.helpers.Session;
 import com.mem.gon.models.User;
 import com.mem.gon.util.ApiClass;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 public class LoginActivity extends AppCompatActivity {
@@ -30,6 +35,8 @@ public class LoginActivity extends AppCompatActivity {
     SignInFragment ls;
 
     CallbackManager callbackManager;
+
+    ProgressDialog dialog;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -54,7 +61,37 @@ public class LoginActivity extends AppCompatActivity {
                 GraphRequest request = GraphRequest.newMeRequest(loginResult.getAccessToken(), new GraphRequest.GraphJSONObjectCallback() {
                             @Override
                             public void onCompleted(JSONObject object, GraphResponse response) {
-                                System.out.println(response);
+                                showLoadingDialog();
+                                try {
+                                    final String uid = response.getJSONObject().getString("id");
+                                    final String email = response.getJSONObject().getString("email");
+                                    final String[] name = response.getJSONObject().getString("name").split(" ");
+                                    ApiClass.facebookLogin(uid, email, name[0], name[1], new Response.Listener<JSONObject>() {
+                                        @Override
+                                        public void onResponse(JSONObject response) {
+                                            try {
+                                                User user = new User(response.getString("email"), response.getString("first_name"), response.getString("last_name"));
+                                                user.setId(response.getLong("id"));
+                                                user.setFacebookUID(response.getString("facebook_uid"));
+                                                Session.create(user);
+                                                startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                                                finish();
+                                                hideLoadingDialog();
+                                            } catch (JSONException e) {
+                                                hideLoadingDialog();
+                                                e.printStackTrace();
+                                            }
+                                        }
+                                    }, new Response.ErrorListener() {
+                                        @Override
+                                        public void onErrorResponse(VolleyError error) {
+                                            Toast.makeText(LoginActivity.this, error.getMessage(), Toast.LENGTH_LONG).show();
+                                            hideLoadingDialog();
+                                        }
+                                    });
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
                             }
                         });
                 Bundle parameters = new Bundle();
@@ -110,5 +147,15 @@ public class LoginActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         callbackManager.onActivityResult(requestCode, resultCode, data);
+    }
+
+    void showLoadingDialog() {
+        dialog = new ProgressDialog(this);
+        dialog.setCancelable(false);
+        dialog.show();
+    }
+
+    void hideLoadingDialog() {
+        dialog.dismiss();
     }
 }

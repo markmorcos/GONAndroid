@@ -82,11 +82,13 @@ public class NewsFeedFragment extends Fragment {
                         post.setId(currentPost.getLong("id"));
                         post.setUser(User.fromJSON(currentPost.getJSONObject("user")));
                         ArrayList<Comment> comments = new ArrayList<Comment>();
-                        for(int j = 0; j < currentPost.getJSONArray("comments").length(); ++j){
-                            User commentWriter = User.fromJSON(currentPost.getJSONArray("comments").getJSONObject(j).getJSONObject("user"));
-                            comments.add(new Comment(commentWriter, currentPost.getJSONArray("comments").getJSONObject(j).getString("text")));
+                        if (currentPost.optJSONArray("comments") != null) {
+                            for (int j = 0; j < currentPost.getJSONArray("comments").length(); ++j) {
+                                User commentWriter = User.fromJSON(currentPost.getJSONArray("comments").getJSONObject(j).getJSONObject("user"));
+                                comments.add(new Comment(commentWriter, currentPost.getJSONArray("comments").getJSONObject(j).getString("text")));
+                            }
+                            post.setComments(comments);
                         }
-                        post.setComments(comments);
                         post.setText(post.getUser().getName() + ": " + currentPost.getString("text"));
                         if(currentPost.getLong("other_user_id") != 0) {
                             post.setOtherUser(User.fromJSON(currentPost.getJSONObject("other_user")));

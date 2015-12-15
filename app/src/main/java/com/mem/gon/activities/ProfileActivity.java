@@ -189,7 +189,6 @@ public class ProfileActivity extends AppCompatActivity implements OnMapReadyCall
             cancel.setVisibility(View.GONE);
             name_button.setVisibility(View.GONE);
 
-            //TODO: Check friends
             addFriend.setOnClickListener(new View.OnClickListener() {
 
                 public void onClick(View arg0) {
