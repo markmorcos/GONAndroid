@@ -49,13 +49,12 @@ public class SignUpFragment extends Fragment {
                 }
                 else {
                     showLoadingDialog();
-                    ApiClass.checkEmail(newEmail.getText().toString(), new Response.Listener<String>() {
+                    ApiClass.checkEmail(newEmail.getText().toString(), new Response.Listener<JSONObject>() {
                         @Override
-                        public void onResponse(String response) {
+                        public void onResponse(JSONObject response) {
                             try {
-                                JSONObject json = new JSONObject(response);
-                                if (json.optBoolean("error")) {
-                                    Toast.makeText(getActivity(), json.getString("error_message"), Toast.LENGTH_LONG).show();
+                                if (response.optBoolean("error")) {
+                                    Toast.makeText(getActivity(), response.getJSONObject("error_messages").getJSONArray("email").getString(0), Toast.LENGTH_LONG).show();
                                 } else {
                                     Intent intent = new Intent(getActivity(), DetailsActivity.class);
                                     intent.putExtra("email", newEmail.getText().toString());

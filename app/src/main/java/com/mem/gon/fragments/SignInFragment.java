@@ -55,20 +55,19 @@ public class SignInFragment extends Fragment {
                 }
                 else {
                     showLoadingDialog();
-                    ApiClass.login(email.getText().toString(), password.getText().toString(), new Response.Listener<String>() {
+                    ApiClass.login(email.getText().toString(), password.getText().toString(), new Response.Listener<JSONObject>() {
                         @Override
-                        public void onResponse(String response) {
+                        public void onResponse(JSONObject response) {
                             try {
-                                JSONObject json = new JSONObject(response);
-                                if (json.optBoolean("error")) {
-                                    Toast.makeText(getActivity(), json.getString("error_message"), Toast.LENGTH_LONG).show();
+                                if (response.optBoolean("error")) {
+                                    Toast.makeText(getActivity(), response.getString("error_message"), Toast.LENGTH_LONG).show();
                                 } else {
-                                    User user = new User(json.getString("email"), json.getString("first_name"), json.getString("last_name"));
-                                    user.setId(json.getLong("id"));
-                                    user.setPicture(json.getString("picture"));
-                                    user.setLatitude(json.getDouble("latitude"));
-                                    user.setLongitude(json.getDouble("longitude"));
-                                    user.setFacebookUID(json.getString("facebook_uid"));
+                                    User user = new User(response.getString("email"), response.getString("first_name"), response.getString("last_name"));
+                                    user.setId(response.getLong("id"));
+                                    user.setPicture(response.getString("picture"));
+                                    user.setLatitude(response.getDouble("latitude"));
+                                    user.setLongitude(response.getDouble("longitude"));
+                                    user.setFacebookUID(response.getString("facebook_uid"));
                                     Session.create(user);
                                     getActivity().startActivity(new Intent(getActivity(), MainActivity.class));
                                     getActivity().finish();

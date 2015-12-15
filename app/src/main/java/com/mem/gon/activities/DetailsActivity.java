@@ -29,6 +29,7 @@ public class DetailsActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        ApiClass.context = this;
         setContentView(R.layout.activity_details);
 
         Button signUp = (Button) findViewById(R.id.signup_button);
@@ -56,24 +57,22 @@ public class DetailsActivity extends Activity {
                 else {
                     showLoadingDialog();
                     final String email = getIntent().getStringExtra("email");
-                    ApiClass.signUp(email, password.getText().toString(), firstName.getText().toString(), lastName.getText().toString(), new Response.Listener<String>() {
+                    ApiClass.signUp(email, password.getText().toString(), firstName.getText().toString(), lastName.getText().toString(), new Response.Listener<JSONObject>() {
                         @Override
-                        public void onResponse(String response) {
+                        public void onResponse(JSONObject response) {
                             try {
-                                JSONObject json = new JSONObject(response);
-                                if (json.optBoolean("error")) {
-                                    Toast.makeText(DetailsActivity.this, json.getString("error_message"), Toast.LENGTH_LONG).show();
+                                if (response.optBoolean("error")) {
+                                    Toast.makeText(DetailsActivity.this, response.getString("error_message"), Toast.LENGTH_LONG).show();
                                 } else {
-                                    ApiClass.login(email, password.getText().toString(), new Response.Listener<String>() {
+                                    ApiClass.login(email, password.getText().toString(), new Response.Listener<JSONObject>() {
                                         @Override
-                                        public void onResponse(String response) {
+                                        public void onResponse(JSONObject response) {
                                             try {
-                                                JSONObject json = new JSONObject(response);
-                                                if (json.optBoolean("error")) {
-                                                    Toast.makeText(DetailsActivity.this, json.getString("error_message"), Toast.LENGTH_LONG).show();
+                                                if (response.optBoolean("error")) {
+                                                    Toast.makeText(DetailsActivity.this, response.getString("error_message"), Toast.LENGTH_LONG).show();
                                                 } else {
-                                                    User user = new User(json.getString("email"), json.getString("first_name"), json.getString("last_name"));
-                                                    user.setId(json.getLong("id"));
+                                                    User user = new User(response.getString("email"), response.getString("first_name"), response.getString("last_name"));
+                                                    user.setId(response.getLong("id"));
                                                     Session.create(user);
                                                     startActivity(new Intent(DetailsActivity.this, MainActivity.class));
                                                     finish();

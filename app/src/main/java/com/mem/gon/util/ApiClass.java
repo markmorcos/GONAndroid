@@ -5,21 +5,21 @@ import android.content.Context;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 /**
  * Created by mark on 14/12/15.
  */
 public class ApiClass {
 
-    private static final String BASE_URL = "http://localhost:3000";
-    private static Context context;
+    private static final String BASE_URL = "http://10.0.3.2:3000/api";
+    public static Context context;
     private static RequestQueue requestQueue;
-
-    public ApiClass(Context context) {
-        this.context = context;
-    }
 
     private static RequestQueue getRequestQueue() {
         if (requestQueue == null) {
@@ -28,22 +28,44 @@ public class ApiClass {
         return requestQueue;
     }
 
-    public static void checkEmail(String email, Response.Listener<String> listener, Response.ErrorListener errorListener) {
-        String url = BASE_URL + "/registrations/email";
-        StringRequest request = new StringRequest(Request.Method.POST, url, listener, errorListener);
-        getRequestQueue().add(request);
+    public static void checkEmail(String email, Response.Listener<JSONObject> listener, Response.ErrorListener errorListener) {
+        String url = BASE_URL + "/users/check_email";
+        JSONObject params = new JSONObject();
+        try {
+            params.put("user[email]", email);
+            JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, url, params, listener, errorListener);
+            getRequestQueue().add(request);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 
-    public static void signUp(String email, String password, String firstName, String lastName, Response.Listener<String> listener, Response.ErrorListener errorListener) {
-        String url = BASE_URL + "/registrations/create";
-        StringRequest request = new StringRequest(Request.Method.POST, url, listener, errorListener);
-        getRequestQueue().add(request);
+    public static void signUp(String email, String password, String firstName, String lastName, Response.Listener<JSONObject> listener, Response.ErrorListener errorListener) {
+        String url = BASE_URL + "/users";
+        JSONObject params = new JSONObject();
+        try {
+            params.put("user[email]", email);
+            params.put("user[password]", password);
+            params.put("user[first_name]", firstName);
+            params.put("user[last_name]", lastName);
+            JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, url, params, listener, errorListener);
+            getRequestQueue().add(request);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 
-    public static void login(String email, String password, Response.Listener<String> listener, Response.ErrorListener errorListener) {
-        String url = BASE_URL + "/sessions/create";
-        StringRequest request = new StringRequest(Request.Method.POST, url, listener, errorListener);
-        getRequestQueue().add(request);
+    public static void login(String email, String password, Response.Listener<JSONObject> listener, Response.ErrorListener errorListener) {
+        String url = BASE_URL + "/users/sign_in";
+        JSONObject params = new JSONObject();
+        try {
+            params.put("registration[email]", email);
+            params.put("registration[password]", password);
+            JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, url, params, listener, errorListener);
+            getRequestQueue().add(request);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 
     public static void getNewsFeed(long id, Response.Listener<String> listener, Response.ErrorListener errorListener) {

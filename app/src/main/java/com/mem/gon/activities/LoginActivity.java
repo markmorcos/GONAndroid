@@ -18,6 +18,7 @@ import com.mem.gon.fragments.SignInFragment;
 import com.mem.gon.fragments.SignUpFragment;
 import com.mem.gon.helpers.Session;
 import com.mem.gon.models.User;
+import com.mem.gon.util.ApiClass;
 
 public class LoginActivity extends AppCompatActivity {
     TextView signIn, signUp;
@@ -29,6 +30,7 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        ApiClass.context = this;
         FacebookSdk.sdkInitialize(this);
         setContentView(R.layout.activity_login);
         callbackManager = CallbackManager.Factory.create();
