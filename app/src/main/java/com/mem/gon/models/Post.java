@@ -34,6 +34,13 @@ public class Post extends Model {
         this.comments = comments;
     }
 
+    public Post(User user, User otherUser, String text, ArrayList<Comment> comments){
+        this.user = user;
+        this.otherUser = otherUser;
+        this.text = text;
+        this.comments = comments;
+    }
+
     public User getUser() {
         return user;
     }

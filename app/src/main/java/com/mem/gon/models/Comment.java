@@ -1,10 +1,13 @@
 package com.mem.gon.models;
 
+import android.os.Parcel;
+
 /**
  * Created by mark on 02/12/15.
  */
 public class Comment extends Model {
     User user;
+    Post post;
     String text;
 
     public Comment() {
@@ -30,6 +33,15 @@ public class Comment extends Model {
     }
 
     public void setText(String text) {
+
         this.text = text;
+    }
+
+    public Post getPost() {
+        return post;
+    }
+
+    public void setPost(Post post) {
+        this.post = post;
     }
 }

@@ -3,10 +3,13 @@ package com.mem.gon.models;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 /**
  * Created by mark on 27/11/15.
  */
-public class Model implements Parcelable {
+public class Model {
     protected long id;
     protected String createdAt, updatedAt;
 
@@ -46,27 +49,39 @@ public class Model implements Parcelable {
         this.updatedAt = updatedAt;
     }
 
-    public static final Creator<Model> CREATOR = new Creator<Model>() {
-        @Override
-        public Model createFromParcel(Parcel in) {
-            return new Model(in);
+//    public static final Creator<Model> CREATOR = new Creator<Model>() {
+//        @Override
+//        public Model createFromParcel(Parcel in) {
+//            return new Model(in);
+//        }
+//
+//        @Override
+//        public Model[] newArray(int size) {
+//            return new Model[size];
+//        }
+//    };
+//
+//    @Override
+//    public int describeContents() {
+//        return 0;
+//    }
+//
+//    @Override
+//    public void writeToParcel(Parcel parcel, int i) {
+//        parcel.writeLong(id);
+//        parcel.writeString(createdAt);
+//        parcel.writeString(updatedAt);
+//    }
+
+    public static Model fromJson(JSONObject json) {
+        Model model = new Model();
+        try {
+            model.id = json.getLong("id");
+            model.createdAt = json.getString("created_at");
+            model.updatedAt = json.getString("updated_at");
+        } catch (JSONException e) {
+            e.printStackTrace();
         }
-
-        @Override
-        public Model[] newArray(int size) {
-            return new Model[size];
-        }
-    };
-
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel parcel, int i) {
-        parcel.writeLong(id);
-        parcel.writeString(createdAt);
-        parcel.writeString(updatedAt);
+        return model;
     }
 }

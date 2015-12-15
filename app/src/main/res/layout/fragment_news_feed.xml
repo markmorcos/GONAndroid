@@ -12,7 +12,7 @@
     android:weightSum="1">
 
     <EditText
-        android:id="@+id/edit_text_comment_text"
+        android:id="@+id/edit_text_post_text"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:hint="Type a post"
@@ -20,7 +20,7 @@
         />
 
     <Button
-        android:id="@+id/button_add_comment"
+        android:id="@+id/button_add_post"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Post"
