@@ -1,9 +1,9 @@
 package com.mem.gon.fragments;
 
+import android.app.Fragment;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,7 +16,6 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.mem.gon.R;
 import com.mem.gon.activities.ProfileActivity;
-import com.mem.gon.adapters.CurrentFriendsAdapter;
 import com.mem.gon.adapters.FriendRequestsAdapter;
 import com.mem.gon.helpers.Session;
 import com.mem.gon.models.User;
@@ -28,16 +27,25 @@ import org.json.JSONObject;
 
 import it.neokree.materialnavigationdrawer.MaterialNavigationDrawer;
 
-public class FriendRequestsFragment extends Fragment {
+/**
+ * Created by Mayar on 12/16/15.
+ */
+public class NotFriendsFragment extends Fragment {
     ProgressDialog dialog;
-    public FriendRequestsFragment() {
+    public NotFriendsFragment() {
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View rootView =  inflater.inflate(R.layout.fragment_friend_requests, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_current_friends, container, false);
+        Button friendRquestsButton = (Button) rootView.findViewById(R.id.button_friend_requests);
         Button currentFriendsButton = (Button) rootView.findViewById(R.id.button_current_friends);
-        Button notFriendsButton = (Button) rootView.findViewById(R.id.button_not_friends);
+        friendRquestsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ((MaterialNavigationDrawer) getActivity()).setFragment(new FriendRequestsFragment(), "Friend Requests");
+            }
+        });
 
         currentFriendsButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -46,21 +54,16 @@ public class FriendRequestsFragment extends Fragment {
             }
         });
 
-        notFriendsButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                ((MaterialNavigationDrawer) getActivity()).setFragment(new NotFriendsFragment(), "Not Friends");
-            }
-        });
+        final ListView friendsList = (ListView) rootView.findViewById(R.id.list_view_not_friends);
+        //TODO: get not friends list
 
-        final ListView friendsList = (ListView) rootView.findViewById(R.id.list_view_friends);
         showLoadingDialog();
-        final User[] friendsArray;
-        ApiClass.getFriendRequests(Session.getUser().getId(), new Response.Listener<JSONArray>() {
+        final User[] NotFriendsArray;
+        ApiClass.getNotFriends(Session.getUser().getId(), new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
                 try {
-                    final User[] friendsArray = new User[response.length()];
+                    final User[] notFriendsArray = new User[response.length()];
                     for (int i = 0; i < response.length(); ++i) {
                         JSONObject current = response.getJSONObject(i).getJSONObject("user");
                         if (current.getLong("id") == Session.getUser().getId()) {
@@ -73,17 +76,9 @@ public class FriendRequestsFragment extends Fragment {
                         user.setLatitude(current.optDouble("latitude"));
                         user.setLongitude(current.optDouble("longitude"));
                         user.setFacebookUID(current.getString("facebook_uid"));
-                        friendsArray[i] = user;
+                        notFriendsArray[i] = user;
                     }
-                    friendsList.setAdapter(new FriendRequestsAdapter(getActivity(), R.layout.adapter_current_friends, friendsArray));
-                   /* friendsList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                        @Override
-                        public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                            Intent intent = new Intent(getActivity(), ProfileActivity.class);
-                            intent.putExtra("id", friendsArray[i].getId());
-                            startActivity(intent);
-                        }
-                    });*/
+                    friendsList.setAdapter(new FriendRequestsAdapter(getActivity(), R.layout.adapter_not_friends, notFriendsArray));
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -109,3 +104,5 @@ public class FriendRequestsFragment extends Fragment {
         dialog.dismiss();
     }
 }
+
+

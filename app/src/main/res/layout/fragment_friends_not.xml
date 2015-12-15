@@ -18,7 +18,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="0.33"
             android:text="Current Friends"
-            android:enabled="true"
+            android:enabled="false"
             />
 
         <Button
@@ -37,13 +37,13 @@
             android:layout_height="55dp"
             android:layout_weight="0.33"
             android:text="Not Friends"
-            android:enabled="false"
+            android:enabled="true"
             />
 
     </LinearLayout>
 
     <ListView
-        android:id="@+id/list_view_friends"
+        android:id="@+id/list_view_not_friends"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         />

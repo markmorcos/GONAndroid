@@ -165,6 +165,42 @@ public class ApiClass {
         getRequestQueue().add(request);
     }
 
+    public static void getNotFriends(long id, Response.Listener<JSONArray> listener, Response.ErrorListener errorListener) {
+        String url = BASE_URL + "/users/" + id + "/not_friends";
+        JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, url, listener, errorListener);
+        getRequestQueue().add(request);
+    }
+
+
+    public static void addFriend(long id, long otherId,  Response.Listener<JSONObject> listener, Response.ErrorListener errorListener){
+        String url = BASE_URL + "/users/" + otherId + "/add_friend";
+        JSONObject params = new JSONObject();
+        try {
+            params.put("user_id", id);
+            params.put("other_user_id", otherId);
+            JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, url, params, listener, errorListener);
+            getRequestQueue().add(request);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    public static void removeFriend(long id, long friendId, Response.Listener<JSONObject> listener, Response.ErrorListener errorListener){
+        String url = BASE_URL + "/users/" + friendId + "/remove_friend";
+        JSONObject params = new JSONObject();
+        try {
+            params.put("user_id", id);
+            params.put("other_user_id", friendId);
+            JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, url, params, listener, errorListener);
+            getRequestQueue().add(request);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+
     public static void acceptRejectFriend(long friendId, boolean accept, Response.Listener<JSONObject> listener, Response.ErrorListener errorListener) {
         String url = BASE_URL + "/users/" + friendId + "/respond";
         JSONObject params = new JSONObject();

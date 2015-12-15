@@ -16,16 +16,27 @@
             android:id="@+id/button_current_friends"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="0.5"
+            android:layout_weight="0.33"
             android:text="Current Friends"
+            android:enabled="false"
             />
 
         <Button
             android:id="@+id/button_friend_requests"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="0.5"
+            android:layout_weight="0.33"
             android:text="Friend Requests"
+            android:enabled="true"
+            />
+
+        <Button
+            android:id="@+id/button_not_friends"
+            android:layout_marginTop="8dp"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:layout_weight="0.33"
+            android:text="Not Friends"
             android:enabled="false"
             />
 
