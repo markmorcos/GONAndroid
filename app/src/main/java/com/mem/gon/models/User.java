@@ -1,5 +1,8 @@
 package com.mem.gon.models;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 
@@ -7,13 +10,15 @@ import java.util.ArrayList;
  * Created by mark on 27/11/15.
  */
 public class User extends Model {
+    private long friendId;
     private String email, firstName, lastName, picture;
     private double latitude, longitude;
     private String facebookUID;
     private ArrayList<User> friends;
 
     public User() {
-        id = 0;
+        super();
+        friendId = 0;
         email = "";
         firstName = "";
         lastName = "";
@@ -24,6 +29,7 @@ public class User extends Model {
     }
 
     public User(String email, String firstName, String lastName) {
+        super();
         this.email = email;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -101,5 +107,20 @@ public class User extends Model {
         return firstName + " " + lastName;
     }
 
+    public long getFriendId() {
+        return friendId;
+    }
 
+    public void setFriendId(long friendId) {
+        this.friendId = friendId;
+    }
+    public static User fromJSON(JSONObject current) throws JSONException {
+        User user = new User(current.getString("email"), current.getString("first_name"), current.getString("last_name"));
+        user.setId(current.optLong("id"));
+        user.setPicture(current.optString("picture"));
+        user.setLatitude(current.optDouble("latitude"));
+        user.setLongitude(current.optDouble("longitude"));
+        user.setFacebookUID(current.optString("facebook_uid"));
+        return user;
+    }
 }

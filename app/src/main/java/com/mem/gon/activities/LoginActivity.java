@@ -33,6 +33,13 @@ public class LoginActivity extends AppCompatActivity {
         ApiClass.context = this;
         FacebookSdk.sdkInitialize(this);
         setContentView(R.layout.activity_login);
+
+        if(Session.isUserSignedIn()) {
+            startActivity(new Intent(this, MainActivity.class));
+            finish();
+            return;
+        }
+
         callbackManager = CallbackManager.Factory.create();
 
         LoginButton loginButton = (LoginButton) findViewById(R.id.facebook_login_button);
@@ -40,7 +47,7 @@ public class LoginActivity extends AppCompatActivity {
         loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {
-                Session.create(new User("mark.yehia@gmail.com", "Mark", "Morcos"));
+               // Session.create(new User("mark.yehia@gmail.com", "Mark", "Morcos"));
                 startActivity(new Intent(LoginActivity.this, MainActivity.class));
                 finish();
             }
@@ -55,11 +62,6 @@ public class LoginActivity extends AppCompatActivity {
 
             }
         });
-
-        if(Session.isUserSignedIn()) {
-            startActivity(new Intent(this, MainActivity.class));
-            finish();
-        }
 
         if (getActionBar() != null) {
             getActionBar().hide();

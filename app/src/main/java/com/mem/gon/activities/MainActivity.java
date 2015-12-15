@@ -12,6 +12,8 @@ import com.mem.gon.fragments.MessagesFragment;
 import com.mem.gon.fragments.NewsFeedFragment;
 import com.mem.gon.fragments.SettingsFragment;
 import com.mem.gon.helpers.Session;
+import com.mem.gon.models.User;
+import com.squareup.picasso.Picasso;
 
 import it.neokree.materialnavigationdrawer.MaterialNavigationDrawer;
 import it.neokree.materialnavigationdrawer.elements.MaterialAccount;
@@ -26,10 +28,11 @@ public class MainActivity extends MaterialNavigationDrawer implements MaterialAc
         if (!Session.isUserSignedIn()) {
             startActivity(new Intent(MainActivity.this, LoginActivity.class));
             finish();
+            return;
         }
         // set account
-        addAccount(new MaterialAccount(getResources(), "Mark Morcos", "mark.yehia@gmail.com", R.drawable.picture, R.drawable.bamboo));
-
+        User user = Session.getUser();
+        addAccount(new MaterialAccount(getResources(), user.getName(), user.getEmail(), R.drawable.picture, R.drawable.bamboo));
         // set listener
         setAccountListener(this);
 

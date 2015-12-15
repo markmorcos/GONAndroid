@@ -65,8 +65,8 @@ public class SignInFragment extends Fragment {
                                     User user = new User(response.getString("email"), response.getString("first_name"), response.getString("last_name"));
                                     user.setId(response.getLong("id"));
                                     user.setPicture(response.getString("picture"));
-                                    user.setLatitude(response.getDouble("latitude"));
-                                    user.setLongitude(response.getDouble("longitude"));
+                                    user.setLatitude(response.optDouble("latitude"));
+                                    user.setLongitude(response.optDouble("longitude"));
                                     user.setFacebookUID(response.getString("facebook_uid"));
                                     Session.create(user);
                                     getActivity().startActivity(new Intent(getActivity(), MainActivity.class));

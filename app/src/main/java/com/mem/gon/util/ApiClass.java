@@ -1,14 +1,17 @@
 package com.mem.gon.util;
 
+import android.app.DownloadManager;
 import android.content.Context;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
+import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -29,10 +32,10 @@ public class ApiClass {
     }
 
     public static void checkEmail(String email, Response.Listener<JSONObject> listener, Response.ErrorListener errorListener) {
-        String url = BASE_URL + "/users/check_email";
+        String url = BASE_URL + "/registrations/check_email";
         JSONObject params = new JSONObject();
         try {
-            params.put("user[email]", email);
+            params.put("email", email);
             JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, url, params, listener, errorListener);
             getRequestQueue().add(request);
         } catch (JSONException e) {
@@ -44,10 +47,10 @@ public class ApiClass {
         String url = BASE_URL + "/users";
         JSONObject params = new JSONObject();
         try {
-            params.put("user[email]", email);
-            params.put("user[password]", password);
-            params.put("user[first_name]", firstName);
-            params.put("user[last_name]", lastName);
+            params.put("email", email);
+            params.put("password", password);
+            params.put("first_name", firstName);
+            params.put("last_name", lastName);
             JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, url, params, listener, errorListener);
             getRequestQueue().add(request);
         } catch (JSONException e) {
@@ -59,8 +62,8 @@ public class ApiClass {
         String url = BASE_URL + "/users/sign_in";
         JSONObject params = new JSONObject();
         try {
-            params.put("registration[email]", email);
-            params.put("registration[password]", password);
+            params.put("email", email);
+            params.put("password", password);
             JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, url, params, listener, errorListener);
             getRequestQueue().add(request);
         } catch (JSONException e) {
@@ -68,15 +71,32 @@ public class ApiClass {
         }
     }
 
-    public static void getNewsFeed(long id, Response.Listener<String> listener, Response.ErrorListener errorListener) {
-        String url = BASE_URL + String.format("/users/%d%n", id);
-        StringRequest request = new StringRequest(Request.Method.GET, url, listener, errorListener);
+    // TODO
+    public static void getNewsFeed(long id, Response.Listener<JSONArray> listener, Response.ErrorListener errorListener) {
+        String url = BASE_URL + "/users/" +  id + "/news_feed";
+        JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, url, listener, errorListener);
         getRequestQueue().add(request);
     }
 
-    public static void getProfile(long id, Response.Listener<String> listener, Response.ErrorListener errorListener) {
-        String url = BASE_URL + String.format("/users/%d%n/profile", id);
-        StringRequest request = new StringRequest(Request.Method.GET, url, listener, errorListener);
+    public static void postAPost(long id, long friendId, String text, Response.Listener<JSONObject> listener, Response.ErrorListener errorListener) {
+        String url = BASE_URL + "/posts";
+        JSONObject params = new JSONObject();
+        try {
+            params.put("id", id);
+            params.put("other_user_id", friendId);
+            params.put("text", text);
+            JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, url, params, listener, errorListener);
+            getRequestQueue().add(request);
+        }
+        catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    public static void getProfile(long id, Response.Listener<JSONObject> listener, Response.ErrorListener errorListener) {
+        String url = BASE_URL + "/users/" + id + "/profile";
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, listener, errorListener);
         getRequestQueue().add(request);
     }
 
@@ -86,10 +106,17 @@ public class ApiClass {
         getRequestQueue().add(request);
     }
 
-    public static void changeName(long id, String firstName, String lastName, Response.Listener<String> listener, Response.ErrorListener errorListener) {
-        String url = BASE_URL + String.format("/users/%d%n/profile", id);
-        StringRequest request = new StringRequest(Request.Method.POST, url, listener, errorListener);
-        getRequestQueue().add(request);
+    public static void changeName(long id, String firstName, String lastName, Response.Listener<JSONObject> listener, Response.ErrorListener errorListener) {
+        String url = BASE_URL + "/users/" + id + "/change_name";
+        try {
+            JSONObject params = new JSONObject();
+            params.put("first_name", firstName);
+            params.put("last_name", lastName);
+            JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, url, params, listener, errorListener);
+            getRequestQueue().add(request);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 
     public static void changePhoto(long id, String picture, Response.Listener<String> listener, Response.ErrorListener errorListener) {
@@ -98,22 +125,29 @@ public class ApiClass {
         getRequestQueue().add(request);
     }
 
-    public static void getCurrentFriends(long id, Response.Listener<String> listener, Response.ErrorListener errorListener) {
-        String url = BASE_URL + String.format("/users/%d%n/current_friends", id);
-        StringRequest request = new StringRequest(Request.Method.GET, url, listener, errorListener);
+    public static void getCurrentFriends(long id, Response.Listener<JSONArray> listener, Response.ErrorListener errorListener) {
+        String url = BASE_URL + "/users/" + id + "/current_friends";
+        JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, url, listener, errorListener);
         getRequestQueue().add(request);
     }
 
-    public static void getFriendRequests(long id, Response.Listener<String> listener, Response.ErrorListener errorListener) {
-        String url = BASE_URL + String.format("/users/%d%n/friend_requests", id);
-        StringRequest request = new StringRequest(Request.Method.GET, url, listener, errorListener);
+    public static void getFriendRequests(long id, Response.Listener<JSONArray> listener, Response.ErrorListener errorListener) {
+        String url = BASE_URL + "/users/" + id + "/friend_requests";
+        JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, url, listener, errorListener);
         getRequestQueue().add(request);
     }
 
-    public static void acceptRejectFriend(long id, long friendId, boolean accept, Response.Listener<String> listener, Response.ErrorListener errorListener) {
-        String url = BASE_URL + String.format("/users/%d%n/friends/%d%n", id, friendId);
-        StringRequest request = new StringRequest(Request.Method.POST, url, listener, errorListener);
-        getRequestQueue().add(request);
+    public static void acceptRejectFriend(long friendId, boolean accept, Response.Listener<JSONObject> listener, Response.ErrorListener errorListener) {
+        String url = BASE_URL + "/users/" + friendId + "/respond";
+        JSONObject params = new JSONObject();
+        try {
+            params.put("accepted", accept);
+            JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, url, params, listener, errorListener);
+            getRequestQueue().add(request);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
     }
 
     public static void getMessages(long id, Response.Listener<String> listener, Response.ErrorListener errorListener) {

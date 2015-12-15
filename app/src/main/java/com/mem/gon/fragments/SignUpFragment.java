@@ -52,24 +52,24 @@ public class SignUpFragment extends Fragment {
                     ApiClass.checkEmail(newEmail.getText().toString(), new Response.Listener<JSONObject>() {
                         @Override
                         public void onResponse(JSONObject response) {
-                            try {
-                                if (response.optBoolean("error")) {
-                                    Toast.makeText(getActivity(), response.getJSONObject("error_messages").getJSONArray("email").getString(0), Toast.LENGTH_LONG).show();
-                                } else {
-                                    Intent intent = new Intent(getActivity(), DetailsActivity.class);
-                                    intent.putExtra("email", newEmail.getText().toString());
-                                    getActivity().startActivity(intent);
-                                    getActivity().finish();
-                                }
-                            } catch (JSONException e) {
-                                e.printStackTrace();
+                            if (response.optBoolean("error")) {
+                                Toast.makeText(getActivity(), "Email has already been taken", Toast.LENGTH_LONG).show();
+                            } else {
+                                Intent intent = new Intent(getActivity(), DetailsActivity.class);
+                                intent.putExtra("email", newEmail.getText().toString());
+                                getActivity().startActivity(intent);
+                                getActivity().finish();
                             }
                             hideLoadingDialog();
                         }
                     }, new Response.ErrorListener() {
                         @Override
                         public void onErrorResponse(VolleyError error) {
-                            Toast.makeText(getActivity(), error.getMessage(), Toast.LENGTH_LONG).show();
+                            if (error.networkResponse.statusCode == 422) {
+                                Toast.makeText(getActivity(), "Email has already been taken", Toast.LENGTH_LONG).show();
+                            } else {
+                                Toast.makeText(getActivity(), error.getMessage(), Toast.LENGTH_LONG).show();
+                            }
                             hideLoadingDialog();
                         }
                     });
