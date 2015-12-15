@@ -94,6 +94,20 @@ public class ApiClass {
 
     }
 
+    public static void commentAComment(long id, long postId, String text, Response.Listener<JSONObject> listener, Response.ErrorListener errorListener) {
+        String url = BASE_URL + "/comments";
+        JSONObject params = new JSONObject();
+        try {
+            params.put("id", id);
+            params.put("post_id", postId);
+            params.put("text", text);
+            JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, url, params, listener, errorListener);
+            getRequestQueue().add(request);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
     public static void getProfile(long id, Response.Listener<JSONObject> listener, Response.ErrorListener errorListener) {
         String url = BASE_URL + "/users/" + id + "/profile";
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, listener, errorListener);
