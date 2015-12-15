@@ -37,10 +37,18 @@ public class CurrentFriendsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView =  inflater.inflate(R.layout.fragment_current_friends, container, false);
         Button friendRquestsButton = (Button) rootView.findViewById(R.id.button_friend_requests);
+        Button notFriendButton = (Button) rootView.findViewById(R.id.button_not_friends);
         friendRquestsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 ((MaterialNavigationDrawer) getActivity()).setFragment(new FriendRequestsFragment(), "Friend Requests");
+            }
+        });
+
+        notFriendButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ((MaterialNavigationDrawer) getActivity()).setFragment(new NotFriendsFragment(), "Not Friends");
             }
         });
         final ListView friendsList = (ListView) rootView.findViewById(R.id.list_view_friends);
