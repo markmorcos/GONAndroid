@@ -65,11 +65,7 @@ public class SignUpFragment extends Fragment {
                     }, new Response.ErrorListener() {
                         @Override
                         public void onErrorResponse(VolleyError error) {
-                            if (error.networkResponse.statusCode == 422) {
-                                Toast.makeText(getActivity(), "Email has already been taken", Toast.LENGTH_LONG).show();
-                            } else {
-                                Toast.makeText(getActivity(), error.getMessage(), Toast.LENGTH_LONG).show();
-                            }
+                            Toast.makeText(getActivity(), "Email has already been taken", Toast.LENGTH_LONG).show();
                             hideLoadingDialog();
                         }
                     });

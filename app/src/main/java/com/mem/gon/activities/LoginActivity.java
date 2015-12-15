@@ -11,6 +11,8 @@ import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
 import com.facebook.FacebookSdk;
+import com.facebook.GraphRequest;
+import com.facebook.GraphResponse;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 import com.mem.gon.R;
@@ -19,6 +21,8 @@ import com.mem.gon.fragments.SignUpFragment;
 import com.mem.gon.helpers.Session;
 import com.mem.gon.models.User;
 import com.mem.gon.util.ApiClass;
+
+import org.json.JSONObject;
 
 public class LoginActivity extends AppCompatActivity {
     TextView signIn, signUp;
@@ -47,9 +51,19 @@ public class LoginActivity extends AppCompatActivity {
         loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {
-               // Session.create(new User("mark.yehia@gmail.com", "Mark", "Morcos"));
-                startActivity(new Intent(LoginActivity.this, MainActivity.class));
-                finish();
+                GraphRequest request = GraphRequest.newMeRequest(loginResult.getAccessToken(), new GraphRequest.GraphJSONObjectCallback() {
+                            @Override
+                            public void onCompleted(JSONObject object, GraphResponse response) {
+                                System.out.println(response);
+                            }
+                        });
+                Bundle parameters = new Bundle();
+                parameters.putString("fields", "id,name,email");
+                request.setParameters(parameters);
+                request.executeAsync();
+                // Session.create(new User("mark.yehia@gmail.com", "Mark", "Morcos"));
+                // startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                // finish();
             }
 
             @Override
